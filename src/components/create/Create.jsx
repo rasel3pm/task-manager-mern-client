@@ -1,5 +1,32 @@
-import {Container, Row} from "react-bootstrap";
+import { useState } from "react";
+import { Container, Row } from "react-bootstrap";
+import { createTask } from "../../ApiRequest/ApiRequest";
+import { errorToast, isEmpty } from "../../helper/FormValidation";
+import { useNavigate } from "react-router-dom";
 const Create = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    taskName: "",
+    description: "",
+  });
+
+  const changeHandaler = (property, value) => {
+    setFormData({ ...formData, [property]: value });
+  };
+
+  const submitData = () => {
+    if (isEmpty(formData.taskName)) {
+      errorToast("Task name is requard");
+      return false;
+    }
+    if (isEmpty(formData.description)) {
+      errorToast("Description name is requard");
+      return false;
+    }
+    createTask(formData.taskName, formData.description).then((res) => {
+      navigate("/All");
+    });
+  };
   return (
     <>
       <Container className="content-body">
@@ -10,12 +37,16 @@ const Create = () => {
                 <h4>Create New</h4>
                 <br />
                 <input
+                  onChange={(e) => changeHandaler("taskName", e.target.value)}
                   placeholder="Task Name"
                   className="form-control animated fadeInUp"
                   type="text"
                 />
                 <br />
                 <textarea
+                  onChange={(e) =>
+                    changeHandaler("description", e.target.value)
+                  }
                   rows={5}
                   placeholder="Task Description"
                   className="form-control animated fadeInUp"
@@ -23,6 +54,7 @@ const Create = () => {
                 />
                 <br />
                 <button
+                  onClick={submitData}
                   className="btn float-end btn-success"
                 >
                   Create

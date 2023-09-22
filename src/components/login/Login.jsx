@@ -1,9 +1,10 @@
 import React, { Fragment, useRef } from "react";
-import { Link, NavLink, BrowserRouter, HashRouter } from "react-router-dom";
+import { Link, useNavigate, BrowserRouter, HashRouter } from "react-router-dom";
 import { errorToast, isEmail, isEmpty } from "../../helper/FormValidation";
 import { LoginRequest } from "../../ApiRequest/ApiRequest";
 
 const Login = () => {
+  const navigate = useNavigate();
   let passRef,
     emailRef = useRef();
 
@@ -17,7 +18,7 @@ const Login = () => {
     } else {
       LoginRequest(email, pass).then((result) => {
         if (result === true) {
-          window.location.href = "/";
+          navigate("/", { replace: true });
         }
       });
     }

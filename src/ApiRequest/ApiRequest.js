@@ -2,8 +2,32 @@ import axios from "axios";
 import { SuccessToast, errorToast } from "../helper/FormValidation";
 import store from "../redux/store/store";
 import { HideLoader, ShowLoader } from "../redux/slice/settings/settingsSlice";
-import { setToken, setUserDetails } from "../helper/appHelper";
+import { getToken, setToken, setUserDetails } from "../helper/appHelper";
 let baseURL = "http://localhost:5000/api/v1";
+let axiosHeader = { headers: { token: getToken() } };
+export function createTask(taskName, description) {
+  let url = baseURL + "/CreateTask";
+  let data = {
+    taskName: taskName,
+    description: description,
+    status: "New",
+  };
+
+  return axios
+    .post(url, data, axiosHeader)
+    .then((res) => {
+      store.dispatch(HideLoader());
+      if (res.status === 200) {
+        SuccessToast("Task Create Success");
+        return true;
+      }
+    })
+    .catch((e) => {
+      errorToast("Something went wrong");
+      store.dispatch(HideLoader());
+      return false;
+    });
+}
 
 export function LoginRequest(email, password) {
   let URL = baseURL + "/login";
@@ -14,6 +38,7 @@ export function LoginRequest(email, password) {
       store.dispatch(HideLoader());
       if (res.status === 200) {
         setToken(res.data["token"]);
+        console.log(res.data["token"]);
         setUserDetails(res.data.user[0]);
         SuccessToast("Login Success");
         return true;

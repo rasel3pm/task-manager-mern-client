@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Dashboard_Page from "./pages/Dashboard_Page";
 import Create_Page from "./pages/Create_Page";
@@ -9,28 +8,44 @@ import Cancel_Page from "./pages/Cancel_Page";
 import Profile_Page from "./pages/Profile_Page";
 import NotFound_Page from "./pages/NotFound_Page";
 import FullscreenLoader from "./components/masterLayOut/FullScreenLoader";
-import Login_Page from './pages/Login_Page';
-import Registration_Page from './pages/Registration_Page';
+import Login_Page from "./pages/Login_Page";
+import Registration_Page from "./pages/Registration_Page";
+import { getToken } from "./helper/appHelper";
+import { Fragment } from "react";
 const App = () => {
-  return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route exact path="/" element={<Dashboard_Page />} />
-          <Route exact path="/Create" element={<Create_Page />} />
-          <Route exact path="/All" element={<New_Page />} />
-          <Route exact path="/Progress" element={<Progress_Page />} />
-          <Route exact path="/Completed" element={<Complete_Page />} />
-          <Route exact path="/Canceled" element={<Cancel_Page />} />
-          <Route exact path="/Profile" element={<Profile_Page />} />
-          <Route exact path="/login" element={<Login_Page/>}/>
-          <Route exact path="/Registration" element={<Registration_Page/>}/>
-          <Route path="*" element={<NotFound_Page />} />
-        </Routes>
-      </BrowserRouter>
-      {/* <FullscreenLoader /> */}
-    </>
-  );
+  if (getToken()) {
+    return (
+      <Fragment>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Dashboard_Page />} />
+            <Route path="/Create" element={<Create_Page />} />
+            <Route path="/All" element={<New_Page />} />
+            <Route path="/Progress" element={<Progress_Page />} />
+            <Route path="/Completed" element={<Complete_Page />} />
+            <Route path="/Canceled" element={<Cancel_Page />} />
+            <Route path="/Profile" element={<Profile_Page />} />
+            <Route path="*" element={<NotFound_Page />} />
+          </Routes>
+        </BrowserRouter>
+        {/* <FullscreenLoader /> */}
+      </Fragment>
+    );
+  } else {
+    return (
+      <Fragment>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Navigate to="/Login" replace />} />
+            <Route path="/Login" element={<Login_Page />} />
+            <Route path="/Registration" element={<Registration_Page />} />
+            <Route path="*" element={<NotFound_Page />} />
+          </Routes>
+        </BrowserRouter>
+        {/* <FullscreenLoader /> */}
+      </Fragment>
+    );
+  }
 };
 
 export default App;
