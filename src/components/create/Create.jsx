@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Create = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    taskName: "",
+    title: "",
     description: "",
   });
 
@@ -15,7 +15,7 @@ const Create = () => {
   };
 
   const submitData = () => {
-    if (isEmpty(formData.taskName)) {
+    if (isEmpty(formData.title)) {
       errorToast("Task name is requard");
       return false;
     }
@@ -23,10 +23,11 @@ const Create = () => {
       errorToast("Description name is requard");
       return false;
     }
-    createTask(formData.taskName, formData.description).then((res) => {
+    createTask(formData.title, formData.description).then((res) => {
       navigate("/All");
     });
   };
+  console.log(formData);
   return (
     <>
       <Container className="content-body">
@@ -37,7 +38,7 @@ const Create = () => {
                 <h4>Create New</h4>
                 <br />
                 <input
-                  onChange={(e) => changeHandaler("taskName", e.target.value)}
+                  onChange={(e) => changeHandaler("title", e.target.value)}
                   placeholder="Task Name"
                   className="form-control animated fadeInUp"
                   type="text"

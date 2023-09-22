@@ -1,7 +1,15 @@
+import { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { AiOutlineCalendar, AiOutlineDelete } from "react-icons/ai";
 import { AiOutlineEdit } from "react-icons/ai";
+import { useSelector } from "react-redux";
+import { taskListByStatus } from "../../ApiRequest/ApiRequest";
 const Progress = () => {
+  useEffect(() => {
+    taskListByStatus("Progress");
+  }, []);
+
+  let progressTaskList = useSelector((state) => state.task.progress);
   return (
     <div>
       <Container className="content-body">
@@ -21,24 +29,31 @@ const Progress = () => {
           </div>
         </div>
         <div className="row p-0 m-0">
-          <div className="col-12 col-lg-4 col-sm-6 col-md-4  p-2">
-            <div className="card h-100">
-              <div className="card-body">
-                <h6 className="animated fadeInUp">hgjghj</h6>
-                <p className="animated fadeInUp">jhgjgh</p>
-                <p className="m-0 animated fadeInUp p-0">
-                  <AiOutlineCalendar />
-                  <a className="icon-nav text-primary mx-1">
-                    <AiOutlineEdit />
-                  </a>
-                  <a className="icon-nav text-danger mx-1">
-                    <AiOutlineDelete />
-                  </a>
-                  <a className="badge float-end bg-success">yuyyuy</a>
-                </p>
+          {progressTaskList.map((item, i) => {
+            return (
+              <div key={i} className="col-12 col-lg-4 col-sm-6 col-md-4  p-2">
+                <div className="card h-100">
+                  <div className="card-body">
+                    <h6 className="animated fadeInUp">{item.title}</h6>
+                    <p className="animated fadeInUp">{item.description}</p>
+                    <p className="m-0 animated fadeInUp p-0">
+                      <AiOutlineCalendar />
+                      {item.createdDate}
+                      <a className="icon-nav text-primary mx-1">
+                        <AiOutlineEdit />
+                      </a>
+                      <a className="icon-nav text-danger mx-1">
+                        <AiOutlineDelete />
+                      </a>
+                      <a className="badge float-end bg-success">
+                        {item.status}
+                      </a>
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </Container>
     </div>
