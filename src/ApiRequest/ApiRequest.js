@@ -35,7 +35,6 @@ export function createTask(title, description) {
       return false;
     });
 }
-
 export function LoginRequest(email, password) {
   let URL = baseURL + "/login";
   let PostBody = { email: email, password: password };
@@ -61,7 +60,6 @@ export function LoginRequest(email, password) {
       return false;
     });
 }
-
 export function registerRequest(
   email,
   firstName,
@@ -108,7 +106,6 @@ export function registerRequest(
       return false;
     });
 }
-
 export function taskListByStatus(status) {
   try {
     store.dispatch(ShowLoader());
@@ -135,7 +132,6 @@ export function taskListByStatus(status) {
     return false;
   }
 }
-
 export function deleteTaskById(_id) {
   try {
     store.dispatch(ShowLoader());
@@ -161,7 +157,6 @@ export function deleteTaskById(_id) {
     return false;
   }
 }
-
 export function SummaryRequest() {
   store.dispatch(ShowLoader());
   let URL = baseURL + "/taskStatusCount";

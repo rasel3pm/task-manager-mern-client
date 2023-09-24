@@ -3,13 +3,28 @@ import { Container } from "react-bootstrap";
 import { AiOutlineCalendar, AiOutlineDelete } from "react-icons/ai";
 import { AiOutlineEdit } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import { taskListByStatus } from "../../ApiRequest/ApiRequest";
+import { deleteTaskById, taskListByStatus } from "../../ApiRequest/ApiRequest";
+import { updateStatusTask } from "../../helper/EditAlart";
 const Progress = () => {
   useEffect(() => {
     taskListByStatus("Progress");
   }, []);
 
   let progressTaskList = useSelector((state) => state.task.progress);
+  const deleteHandle = (_id) => {
+    deleteTaskById(_id).then((result) => {
+      if (result === true) {
+        taskListByStatus("Progress");
+      }
+    });
+  };
+  const updateStatus = (id, status) => {
+    updateStatusTask(id, status).then((result) => {
+      if (result === true) {
+        taskListByStatus("Progress");
+      }
+    });
+  };
   return (
     <div>
       <Container className="content-body">
@@ -29,9 +44,12 @@ const Progress = () => {
           </div>
         </div>
         <div className="row p-0 m-0">
-          {progressTaskList.map((item, i) => {
+          {progressTaskList.map((item) => {
             return (
-              <div key={i} className="col-12 col-lg-4 col-sm-6 col-md-4  p-2">
+              <div
+                key={item._id}
+                className="col-12 col-lg-4 col-sm-6 col-md-4  p-2"
+              >
                 <div className="card h-100">
                   <div className="card-body">
                     <h6 className="animated fadeInUp">{item.title}</h6>
@@ -39,10 +57,16 @@ const Progress = () => {
                     <p className="m-0 animated fadeInUp p-0">
                       <AiOutlineCalendar />
                       {item.createdDate}
-                      <a className="icon-nav text-primary mx-1">
+                      <a
+                        onClick={() => updateStatus(item._id, item.status)}
+                        className="icon-nav text-primary mx-1"
+                      >
                         <AiOutlineEdit />
                       </a>
-                      <a className="icon-nav text-danger mx-1">
+                      <a
+                        onClick={() => deleteHandle(item._id)}
+                        className="icon-nav text-danger mx-1"
+                      >
                         <AiOutlineDelete />
                       </a>
                       <a className="badge float-end bg-success">
