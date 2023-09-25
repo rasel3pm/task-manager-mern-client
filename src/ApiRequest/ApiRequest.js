@@ -10,7 +10,9 @@ import {
   progressTask,
 } from "../redux/slice/taskSlice/taskSlice";
 import { SetSummary } from "../redux/slice/summary/summarySlice";
-let baseURL = "http://localhost:5000/api/v1";
+import { SetProfile } from "../redux/slice/profile/profileSlice";
+let baseURL = "https://task-manager-mern-server.vercel.app/api/v1";
+// let baseURL = "http://localhost:5000/api/v1";
 let axiosHeader = { headers: { token: getToken() } };
 export function createTask(title, description) {
   let url = baseURL + "/CreateTask";
@@ -44,7 +46,6 @@ export function LoginRequest(email, password) {
       store.dispatch(HideLoader());
       if (res.status === 200) {
         setToken(res.data["token"]);
-        console.log(res.data["token"]);
         setUserDetails(res.data.user[0]);
         SuccessToast("Login Success");
         return true;
@@ -194,5 +195,24 @@ export function UpdateStatusRequest(id, status) {
       errorToast("Something Went Wrong");
       store.dispatch(HideLoader());
       return false;
+    });
+}
+
+export function getProfileDetailsRequest() {
+  store.dispatch(ShowLoader());
+  let URL = baseURL + "/GetProfileDetails";
+  axios
+    .get(URL, axiosHeader)
+    .then((res) => {
+      store.dispatch(HideLoader());
+      if (res.status === 200) {
+        store.dispatch(SetProfile(res.data["data"][0]));
+      } else {
+        errorToast("Something Went Wrong");
+      }
+    })
+    .catch((err) => {
+      errorToast("Something Went Wrong");
+      store.dispatch(HideLoader());
     });
 }

@@ -36,7 +36,7 @@ const App = () => {
       <Fragment>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Navigate to="/Login" replace />} />
+            {/* <Route path="/" element={<Navigate to="/Login" replace />} /> */}
             <Route path="/Login" element={<Login_Page />} />
             <Route path="/Registration" element={<Registration_Page />} />
             <Route path="*" element={<NotFound_Page />} />

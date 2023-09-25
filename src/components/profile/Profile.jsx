@@ -1,11 +1,13 @@
-import React from 'react';
-
+import { useEffect } from "react";
+import { getProfileDetailsRequest } from "../../ApiRequest/ApiRequest";
+import { useSelector } from "react-redux";
 const Profile = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+  useEffect(() => {
+    getProfileDetailsRequest();
+  });
+
+  let profileData = useSelector((state) => state.profile.value);
+  return <div>{JSON.stringify(profileData)}</div>;
 };
 
 export default Profile;

@@ -1,5 +1,5 @@
 import React, { Fragment, useRef } from "react";
-import { Link, useNavigate, BrowserRouter, HashRouter } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { errorToast, isEmail, isEmpty } from "../../helper/FormValidation";
 import { LoginRequest } from "../../ApiRequest/ApiRequest";
 
@@ -18,7 +18,8 @@ const Login = () => {
     } else {
       LoginRequest(email, pass).then((result) => {
         if (result === true) {
-          navigate("/", { replace: true });
+          // navigate("/");
+          window.location.href = "/";
         }
       });
     }

@@ -1,0 +1,1 @@
+import{r as t,u as s,j as o}from"./index-7c579c5b.js";import{g as i}from"./ApiRequest-8a336e49.js";const l=()=>{t.useEffect(()=>{i()});let e=s(r=>r.profile.value);return o.jsx("div",{children:JSON.stringify(e)})};export{l as default};
