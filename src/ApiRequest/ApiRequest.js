@@ -216,3 +216,44 @@ export function getProfileDetailsRequest() {
       store.dispatch(HideLoader());
     });
 }
+
+export function ProfileUpdateRequest(
+  email,
+  firstName,
+  lastName,
+  mobile,
+  password,
+  photo
+) {
+  store.dispatch(ShowLoader());
+  try {
+    let URL = baseURL + "/ProfileUpdate";
+    let PostBody = {
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      mobile: mobile,
+      password: password,
+      photo: photo,
+    };
+    let UserDetails = {
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      mobile: mobile,
+      photo: photo,
+    };
+
+    return axios.post(URL, PostBody, axiosHeader).then((res) => {
+      store.dispatch(HideLoader());
+      if (res.status === 200) {
+        SuccessToast("Success Update");
+        setUserDetails(UserDetails);
+        return true;
+      }
+    });
+  } catch (error) {
+    errorToast("Something Went Wrong");
+    store.dispatch(HideLoader());
+  }
+}

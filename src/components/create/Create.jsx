@@ -27,7 +27,6 @@ const Create = () => {
       navigate("/All");
     });
   };
-  console.log(formData);
   return (
     <>
       <Container className="content-body">

@@ -12,6 +12,7 @@ import Login_Page from "./pages/Login_Page";
 import Registration_Page from "./pages/Registration_Page";
 import { getToken } from "./helper/appHelper";
 import { Fragment } from "react";
+import ProfileUpdate_Page from "./pages/ProfileUpdate_Page";
 const App = () => {
   if (getToken()) {
     return (
@@ -25,6 +26,10 @@ const App = () => {
             <Route path="/Completed" element={<Complete_Page />} />
             <Route path="/Canceled" element={<Cancel_Page />} />
             <Route path="/Profile" element={<Profile_Page />} />
+            <Route
+              path="/Profile-update/:id"
+              element={<ProfileUpdate_Page />}
+            />
             <Route path="*" element={<NotFound_Page />} />
           </Routes>
         </BrowserRouter>

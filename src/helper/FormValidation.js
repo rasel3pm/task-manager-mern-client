@@ -17,14 +17,14 @@ class FormValidation {
   SuccessToast(msg) {
     cogoToast.success(msg, { position: "bottom-center" });
   }
-  // getBase64(file) {
-  //   return new Promise((resolve, reject) => {
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(file);
-  //     reader.onload = () => resolve(reader.result);
-  //     reader.error = (error) => reject(error);
-  //   });
-  // }
+  getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.error = (error) => reject(error);
+    });
+  }
 }
 
 export const {
@@ -33,5 +33,5 @@ export const {
   isEmail,
   errorToast,
   SuccessToast,
-  // getBase64,
+  getBase64,
 } = new FormValidation();
