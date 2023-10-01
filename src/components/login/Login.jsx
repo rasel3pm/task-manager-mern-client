@@ -18,8 +18,7 @@ const Login = () => {
     } else {
       LoginRequest(email, pass).then((result) => {
         if (result === true) {
-          // navigate("/");
-          window.location.href = "/";
+          navigate("/");
         }
       });
     }

@@ -44,7 +44,7 @@ const ProfileUpdate = () => {
             onChange={(e) => {
               changeHandaler("firstName", e.target.value);
             }}
-            defaultValue={profileData.firstName}
+            defaultValue={profileData["firstName"]}
             className="form-control"
           />
           <br />
@@ -53,7 +53,7 @@ const ProfileUpdate = () => {
           <label className="pb-2 text-black-50">Last Name</label>
           <input
             type="text"
-            defaultValue={profileData.lastName}
+            defaultValue={profileData["lastName"]}
             onChange={(e) => {
               changeHandaler("lastName", e.target.value);
             }}
@@ -65,7 +65,7 @@ const ProfileUpdate = () => {
           <label className="pb-2 text-black-50">Email </label>
           <input
             type="text"
-            defaultValue={profileData.email}
+            defaultValue={profileData["email"]}
             onChange={(e) => {
               changeHandaler("email", e.target.value);
             }}
@@ -76,7 +76,7 @@ const ProfileUpdate = () => {
           <label className="pb-2 text-black-50">Mobile Number </label>
           <input
             type="text"
-            defaultValue={profileData.mobile}
+            defaultValue={profileData["mobile"]}
             onChange={(e) => {
               changeHandaler("mobile", e.target.value);
             }}
@@ -87,7 +87,7 @@ const ProfileUpdate = () => {
           <label className="pb-2 text-black-50">Password </label>
           <input
             type="password"
-            defaultValue={profileData.password}
+            defaultValue={profileData["password"]}
             onChange={(e) => {
               changeHandaler("password", e.target.value);
             }}

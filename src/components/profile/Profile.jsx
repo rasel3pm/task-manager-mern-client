@@ -25,14 +25,14 @@ const Profile = () => {
           <div className="card">
             <div className="card-body text-center">
               <img
-                src={profileData.photo}
-                alt={profileData.firstName}
+                src={profileData["photo"]}
+                alt={profileData["firstName"]}
                 className="rounded-circle img-fluid"
                 style={{ width: 150 }}
               />
               <h5 className="my-2">
                 {" "}
-                {profileData.firstName + " " + profileData.lastName}
+                {profileData["firstName"] + " " + profileData["lastName"]}
               </h5>
             </div>
           </div>

@@ -47,16 +47,16 @@ const Progress = () => {
           {progressTaskList.map((item) => {
             return (
               <div
-                key={item._id}
+                key={item["_id"]}
                 className="col-12 col-lg-4 col-sm-6 col-md-4  p-2"
               >
                 <div className="card h-100">
                   <div className="card-body">
-                    <h6 className="animated fadeInUp">{item.title}</h6>
-                    <p className="animated fadeInUp">{item.description}</p>
+                    <h6 className="animated fadeInUp">{item["title"]}</h6>
+                    <p className="animated fadeInUp">{item["description"]}</p>
                     <p className="m-0 animated fadeInUp p-0">
                       <AiOutlineCalendar />
-                      {item.createdDate}
+                      {item["createdDate"]}
                       <a
                         onClick={() => updateStatus(item._id, item.status)}
                         className="icon-nav text-primary mx-1"
@@ -70,7 +70,7 @@ const Progress = () => {
                         <AiOutlineDelete />
                       </a>
                       <a className="badge float-end bg-success">
-                        {item.status}
+                        {item["status"]}
                       </a>
                     </p>
                   </div>
