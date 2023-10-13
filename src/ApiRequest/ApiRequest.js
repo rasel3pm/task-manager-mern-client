@@ -38,26 +38,24 @@ export function createTask(title, description) {
     });
 }
 export function LoginRequest(email, password) {
+  store.dispatch(ShowLoader());
   let URL = baseURL + "/login";
   let PostBody = { email: email, password: password };
   return axios
     .post(URL, PostBody)
     .then((res) => {
       store.dispatch(HideLoader());
-      if (res.status === 200) {
+      if (res["status"] === 200) {
         setToken(res.data["token"]);
         setUserDetails(res.data.user[0]);
         SuccessToast("Login Success");
         return true;
       }
-      if (res.status === 401) {
-        errorToast("Invalid email or password");
-        return false;
-      }
     })
     .catch((err) => {
-      errorToast("Something went wrong !");
       store.dispatch(HideLoader());
+      errorToast("Invalid Cradetial");
+      // errorToast(err.response.data.message);
       return false;
     });
 }
@@ -255,5 +253,21 @@ export function ProfileUpdateRequest(
   } catch (error) {
     errorToast("Something Went Wrong");
     store.dispatch(HideLoader());
+  }
+}
+
+export function SearchByKeywordRequest(keyword) {
+  store.dispatch(ShowLoader());
+  try {
+    let URL = baseURL + "/SearchTask/" + keyword;
+    return axios.get(URL, axiosHeader).then((res) => {
+      store.dispatch(HideLoader());
+      if (res.status === 200) {
+        let data = res.data;
+        return data;
+      }
+    });
+  } catch (error) {
+    return [];
   }
 }

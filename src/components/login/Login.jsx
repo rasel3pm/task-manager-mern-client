@@ -1,11 +1,10 @@
-import React, { Fragment, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useRef } from "react";
+import { Link } from "react-router-dom";
 import { errorToast, isEmail, isEmpty } from "../../helper/FormValidation";
 import { LoginRequest } from "../../ApiRequest/ApiRequest";
 import { motion } from "framer-motion";
 
 const Login = () => {
-  const navigate = useNavigate();
   let passRef,
     emailRef = useRef();
 

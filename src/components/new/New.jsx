@@ -1,13 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { AiOutlineCalendar, AiOutlineDelete } from "react-icons/ai";
 import { AiOutlineEdit } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import { deleteTaskById, taskListByStatus } from "../../ApiRequest/ApiRequest";
+import {
+  deleteTaskById,
+  taskListByStatus,
+  SearchByKeywordRequest,
+} from "../../ApiRequest/ApiRequest";
 import { updateStatusTask } from "../../helper/EditAlart";
 import { motion } from "framer-motion";
 
 const New = () => {
+  const [keyword, setKeyword] = useState("");
   useEffect(() => {
     taskListByStatus("New");
   }, []);
@@ -28,6 +33,12 @@ const New = () => {
     });
   };
 
+  const searchEvent = async () => {
+    await SearchByKeywordRequest(keyword).then((res) => {
+      console.log(res.data);
+    });
+  };
+
   return (
     <div>
       <Container className="content-body">
@@ -38,10 +49,16 @@ const New = () => {
           <div className="col-12 float-end col-md-6 col-lg-4 px-2">
             <div className="row">
               <div className="col-8">
-                <input className="form-control w-100" />
+                <input
+                  onChange={(e) => setKeyword(e.target.value)}
+                  placeholder="Search"
+                  className="form-control w-100"
+                />
               </div>
               <div className="col-4">
-                <button className="btn btn-primary w-100">Search</button>
+                <button onClick={searchEvent} className="btn btn-primary w-100">
+                  Search
+                </button>
               </div>
             </div>
           </div>
