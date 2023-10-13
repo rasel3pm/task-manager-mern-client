@@ -7,6 +7,7 @@ import {
   isMobile,
 } from "../../helper/FormValidation";
 import { registerRequest } from "../../ApiRequest/ApiRequest";
+import { motion } from "framer-motion";
 
 const Registration = () => {
   let emailRef,
@@ -50,10 +51,10 @@ const Registration = () => {
   };
 
   return (
-    <div className="container">
+    <motion.div className="container">
       <div className="row  justify-content-center">
         <div className="col-md-10 col-lg-10 center-screen">
-          <div className="card animated fadeIn w-100 p-3">
+          <div className="card w-100 p-3">
             <div className="card-body">
               <h4>Sign Up</h4>
               <hr />
@@ -120,7 +121,7 @@ const Registration = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 export default Registration;

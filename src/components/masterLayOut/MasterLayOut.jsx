@@ -9,7 +9,7 @@ import {
   AiOutlineUser,
 } from "react-icons/ai";
 import { BsHourglass, BsListNested } from "react-icons/bs";
-import logo from "../../assets/image/logo.svg";
+import logo from "../../assets/image/task.png";
 import { MdOutlineCancelPresentation } from "react-icons/md";
 import { RiDashboardLine } from "react-icons/ri";
 import {

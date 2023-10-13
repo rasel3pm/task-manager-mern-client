@@ -2,6 +2,7 @@ import React, { Fragment, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { errorToast, isEmail, isEmpty } from "../../helper/FormValidation";
 import { LoginRequest } from "../../ApiRequest/ApiRequest";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,13 +19,17 @@ const Login = () => {
     } else {
       LoginRequest(email, pass).then((result) => {
         if (result === true) {
-          navigate("/");
+          window.location.href = "/";
         }
       });
     }
   };
   return (
-    <Fragment>
+    <motion.div
+      initial={{ opacity: 0, y: -100 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1 }}
+    >
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-7 col-lg-6 center-screen">
@@ -75,7 +80,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </Fragment>
+    </motion.div>
   );
 };
 export default Login;

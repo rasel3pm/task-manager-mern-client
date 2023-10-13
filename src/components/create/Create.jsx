@@ -3,6 +3,7 @@ import { Container, Row } from "react-bootstrap";
 import { createTask } from "../../ApiRequest/ApiRequest";
 import { errorToast, isEmpty } from "../../helper/FormValidation";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 const Create = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -28,7 +29,11 @@ const Create = () => {
     });
   };
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0, y: -100 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1 }}
+    >
       <Container className="content-body">
         <Row className="d-flex justify-content-center">
           <div className="col-12 col-lg-8  col-sm-12 col-md-8  p-2">
@@ -64,7 +69,7 @@ const Create = () => {
           </div>
         </Row>
       </Container>
-    </>
+    </motion.div>
   );
 };
 

@@ -1,6 +1,11 @@
+import { motion } from "framer-motion";
 const ProfileDetails = ({ profileData }) => {
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0, y: -100 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1 }}
+    >
       <div className="card mb-4">
         <div className="card-body">
           <div className="row">
@@ -40,7 +45,7 @@ const ProfileDetails = ({ profileData }) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

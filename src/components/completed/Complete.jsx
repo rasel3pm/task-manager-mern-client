@@ -5,6 +5,7 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { deleteTaskById, taskListByStatus } from "../../ApiRequest/ApiRequest";
 import { updateStatusTask } from "../../helper/EditAlart";
+import { motion } from "framer-motion";
 const Complete = () => {
   useEffect(() => {
     taskListByStatus("Completed");
@@ -41,10 +42,13 @@ const Complete = () => {
           </div>
         </div>
       </div>
-      <div className="row p-0 m-0">
+      <motion.div className="row p-0 m-0">
         {completedTask.map((item) => {
           return (
-            <div
+            <motion.div
+              initial={{ opacity: 0, y: -100 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
               key={item["_id"]}
               className="col-12 col-lg-4 col-sm-6 col-md-4  p-2"
             >
@@ -72,10 +76,10 @@ const Complete = () => {
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
     </Container>
   );
 };
