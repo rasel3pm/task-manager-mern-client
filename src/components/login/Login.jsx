@@ -1,34 +1,25 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { errorToast, isEmail, isEmpty } from "../../helper/FormValidation";
 import { LoginRequest } from "../../ApiRequest/ApiRequest";
-import { motion } from "framer-motion";
-
 const Login = () => {
-  let passRef,
-    emailRef = useRef();
-
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const changeHandaler = (property, value) => {
+    setFormData({ ...formData, [property]: value });
+  };
   const SubmitLogin = () => {
-    let email = emailRef.value;
-    let pass = passRef.value;
-    if (isEmail(email)) {
-      errorToast("Invalid Email Address");
-    } else if (isEmpty(pass)) {
-      errorToast("Password Required");
-    } else {
-      LoginRequest(email, pass).then((result) => {
-        if (result === true) {
-          window.location.href = "/";
-        }
-      });
-    }
+    const { email, password } = formData;
+    LoginRequest(email, password).then((res) => {
+      if (res === true) {
+        window.location.href = "/";
+      }
+    });
   };
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -100 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1 }}
-    >
+    <div>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-7 col-lg-6 center-screen">
@@ -37,14 +28,14 @@ const Login = () => {
                 <h4>SIGN IN</h4>
                 <br />
                 <input
-                  ref={(input) => (emailRef = input)}
+                  onChange={(e) => changeHandaler("email", e.target.value)}
                   placeholder="User Email"
                   className="form-control animated fadeInUp"
                   type="email"
                 />
                 <br />
                 <input
-                  ref={(input) => (passRef = input)}
+                  onChange={(e) => changeHandaler("password", e.target.value)}
                   placeholder="User Password"
                   className="form-control animated fadeInUp"
                   type="password"
@@ -63,7 +54,7 @@ const Login = () => {
                       className="text-center ms-3 h6 animated fadeInUp"
                       to="/Registration"
                     >
-                      Sign Up{" "}
+                      Sign Up
                     </Link>
                     <span className="ms-1">|</span>
                     <Link
@@ -79,7 +70,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 export default Login;

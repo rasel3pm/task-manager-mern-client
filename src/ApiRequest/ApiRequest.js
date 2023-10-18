@@ -45,10 +45,10 @@ export function LoginRequest(email, password) {
     .post(URL, PostBody)
     .then((res) => {
       store.dispatch(HideLoader());
-      if (res["status"] === 200) {
+      if (res.status === 200) {
+        SuccessToast("Login Success");
         setToken(res.data["token"]);
         setUserDetails(res.data.user[0]);
-        SuccessToast("Login Success");
         return true;
       }
     })
@@ -263,8 +263,10 @@ export function SearchByKeywordRequest(keyword) {
     return axios.get(URL, axiosHeader).then((res) => {
       store.dispatch(HideLoader());
       if (res.status === 200) {
-        let data = res.data;
-        return data;
+        store.dispatch(newTask(res.data));
+        store.dispatch(canceledTask(res.data));
+        store.dispatch(progressTask(res.data));
+        store.dispatch(completedTask(res.data));
       }
     });
   } catch (error) {

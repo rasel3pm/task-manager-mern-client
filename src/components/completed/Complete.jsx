@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { deleteTaskById, taskListByStatus } from "../../ApiRequest/ApiRequest";
 import { updateStatusTask } from "../../helper/EditAlart";
 import { motion } from "framer-motion";
+import SearchBar from "../masterLayOut/SearchBar";
 const Complete = () => {
   useEffect(() => {
     taskListByStatus("Completed");
@@ -27,28 +28,11 @@ const Complete = () => {
   };
   return (
     <Container className="content-body">
-      <div className="row p-0 m-0">
-        <div className="col-12 col-md-6 col-lg-8 px-3">
-          <h5>Task Completed</h5>
-        </div>
-        <div className="col-12 float-end col-md-6 col-lg-4 px-2">
-          <div className="row">
-            <div className="col-8">
-              <input className="form-control w-100" />
-            </div>
-            <div className="col-4">
-              <button className="btn btn-primary w-100">Search</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <SearchBar />
       <motion.div className="row p-0 m-0">
         {completedTask.map((item) => {
           return (
-            <motion.div
-              initial={{ opacity: 0, y: -100 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1 }}
+            <div
               key={item["_id"]}
               className="col-12 col-lg-4 col-sm-6 col-md-4  p-2"
             >
@@ -76,7 +60,7 @@ const Complete = () => {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           );
         })}
       </motion.div>

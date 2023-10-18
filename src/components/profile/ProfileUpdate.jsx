@@ -65,6 +65,7 @@ const ProfileUpdate = () => {
           <label className="pb-2 text-black-50">Email </label>
           <input
             type="text"
+            readOnly
             defaultValue={profileData["email"]}
             onChange={(e) => {
               changeHandaler("email", e.target.value);
@@ -84,17 +85,6 @@ const ProfileUpdate = () => {
           />
         </div>
         <div className="col-md-6">
-          <label className="pb-2 text-black-50">Password </label>
-          <input
-            type="password"
-            defaultValue={profileData["password"]}
-            onChange={(e) => {
-              changeHandaler("password", e.target.value);
-            }}
-            className="form-control"
-          />
-        </div>
-        <div className="col-md-6">
           <label className="pb-2 text-black-50">Photo </label>
           <input
             type="file"
@@ -105,10 +95,8 @@ const ProfileUpdate = () => {
             className="form-control"
           />
         </div>
-      </div>
-      <div className="row mt-md-2">
-        <div className="col-md-12  text-md-end text-center">
-          <button onClick={onSubnit} className="btn bg-success text-white w-25">
+        <div className="col-md-6 mt-4">
+          <button onClick={onSubnit} className="btn bg-success text-white w-50">
             Save Change
           </button>
         </div>

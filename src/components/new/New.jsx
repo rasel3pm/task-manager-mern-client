@@ -3,16 +3,11 @@ import { Container } from "react-bootstrap";
 import { AiOutlineCalendar, AiOutlineDelete } from "react-icons/ai";
 import { AiOutlineEdit } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import {
-  deleteTaskById,
-  taskListByStatus,
-  SearchByKeywordRequest,
-} from "../../ApiRequest/ApiRequest";
+import { deleteTaskById, taskListByStatus } from "../../ApiRequest/ApiRequest";
 import { updateStatusTask } from "../../helper/EditAlart";
-import { motion } from "framer-motion";
+import SearchBar from "../masterLayOut/SearchBar";
 
 const New = () => {
-  const [keyword, setKeyword] = useState("");
   useEffect(() => {
     taskListByStatus("New");
   }, []);
@@ -32,47 +27,14 @@ const New = () => {
       }
     });
   };
-
-  const searchEvent = async () => {
-    await SearchByKeywordRequest(keyword).then((res) => {
-      console.log(res.data);
-    });
-  };
-
   return (
     <div>
       <Container className="content-body">
-        <div className="row p-0 m-0">
-          <div className="col-12 col-md-6 col-lg-8 px-3">
-            <h5>New</h5>
-          </div>
-          <div className="col-12 float-end col-md-6 col-lg-4 px-2">
-            <div className="row">
-              <div className="col-8">
-                <input
-                  onChange={(e) => setKeyword(e.target.value)}
-                  placeholder="Search"
-                  className="form-control w-100"
-                />
-              </div>
-              <div className="col-4">
-                <button onClick={searchEvent} className="btn btn-primary w-100">
-                  Search
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
+        <SearchBar />
         <div className="row p-0 m-0">
           {newTaskList.map((item) => {
             return (
-              <motion.div
-                initial={{ opacity: 0, y: -100 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1 }}
-                //add framer mothion
-
+              <div
                 key={item["_id"]}
                 className="col-12 col-lg-4 col-sm-6 col-md-4  p-2"
               >
@@ -100,7 +62,7 @@ const New = () => {
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
