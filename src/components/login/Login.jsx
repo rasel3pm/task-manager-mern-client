@@ -59,7 +59,7 @@ const Login = () => {
                     <span className="ms-1">|</span>
                     <Link
                       className="text-center ms-3 h6 animated fadeInUp"
-                      to="/SendOTP"
+                      to="/email"
                     >
                       Forget Password
                     </Link>

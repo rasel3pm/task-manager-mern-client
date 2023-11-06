@@ -273,3 +273,21 @@ export function SearchByKeywordRequest(keyword) {
     return [];
   }
 }
+
+export async function MatchProfileRequest(email) {
+  try {
+    store.dispatch(ShowLoader());
+    let URL = baseURL + "/MatchProfile";
+    let reqBody = { email: email };
+    const response = await axios.post(URL, reqBody);
+    store.dispatch(HideLoader()); // Make sure HideLoader is a valid action
+    if (response.status === 200) {
+      // SuccessToast(response.data.status); // Make sure SuccessToast is a valid function
+      console.log(response.data.status);
+    }
+    return response.data;
+  } catch (e) {
+    errorToast("wrong", e);
+    return [];
+  }
+}

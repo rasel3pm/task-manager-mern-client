@@ -13,6 +13,9 @@ import Registration_Page from "./pages/Registration_Page";
 import { getToken } from "./helper/appHelper";
 import { Fragment } from "react";
 import ProfileUpdate_Page from "./pages/ProfileUpdate_Page";
+import RecoverEmail_Page from "./pages/RecoverEmail_Page";
+import ReceiveOTP_Page from "./pages/ReceiveOTP_Pgae";
+import ResetPassword_Page from "./pages/ResetPassword_Page";
 const App = () => {
   if (getToken()) {
     return (
@@ -33,7 +36,6 @@ const App = () => {
             <Route path="*" element={<NotFound_Page />} />
           </Routes>
         </BrowserRouter>
-        {/* <FullscreenLoader /> */}
       </Fragment>
     );
   } else {
@@ -44,10 +46,12 @@ const App = () => {
             <Route path="/" element={<Navigate to="/Login" replace />} />
             <Route path="/Login" element={<Login_Page />} />
             <Route path="/Registration" element={<Registration_Page />} />
+            <Route path="/email" element={<RecoverEmail_Page />} />
+            <Route path="/otp" element={<ReceiveOTP_Page />} />
+            <Route path="/reset-password" element={<ResetPassword_Page />} />
             <Route path="*" element={<NotFound_Page />} />
           </Routes>
         </BrowserRouter>
-        {/* <FullscreenLoader /> */}
       </Fragment>
     );
   }
