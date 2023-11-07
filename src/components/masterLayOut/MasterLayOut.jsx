@@ -24,6 +24,8 @@ const MasterLayOut = (props) => {
 
   const onLogout = () => {
     removeSessions();
+    localStorage.clear();
+    window.location.href = "/login";
   };
 
   const MenuBarClickHandler = () => {
