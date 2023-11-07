@@ -5,8 +5,13 @@ import { useNavigate } from "react-router-dom";
 const FindEmail = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
-  const VerifyEmail = () => {
-    MatchProfileRequest(email);
+
+  const VerifyEmail = async () => {
+    await MatchProfileRequest(email).then((res) => {
+      if (res === true) {
+        navigate("/verify-otp");
+      }
+    });
   };
   return (
     <>

@@ -1,5 +1,5 @@
 import React from "react";
-import OTP from "../components/accountRecovery/OTP";
+import OTP from "../components/accountRecovery/VerifyOTP";
 
 const ReceiveOTP_Page = () => {
   return (

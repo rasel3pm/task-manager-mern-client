@@ -46,8 +46,8 @@ const App = () => {
             <Route path="/" element={<Navigate to="/Login" replace />} />
             <Route path="/Login" element={<Login_Page />} />
             <Route path="/Registration" element={<Registration_Page />} />
-            <Route path="/email" element={<RecoverEmail_Page />} />
-            <Route path="/otp" element={<ReceiveOTP_Page />} />
+            <Route path="/send-otp" element={<RecoverEmail_Page />} />
+            <Route path="/verify-otp" element={<ReceiveOTP_Page />} />
             <Route path="/reset-password" element={<ResetPassword_Page />} />
             <Route path="*" element={<NotFound_Page />} />
           </Routes>

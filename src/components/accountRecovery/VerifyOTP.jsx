@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactCodeInput from "react-code-input";
+import { errorToast } from "../../helper/FormValidation";
+import { VerifyOTPRequest } from "../../ApiRequest/ApiRequest";
+import { useNavigate } from "react-router-dom";
+import { getEmail } from "../../helper/appHelper";
 
-const OTP = () => {
+const VerifyOTP = () => {
+  const [otp, setOtp] = useState("");
+  const navigate = useNavigate();
+  const SubmitOTP = () => {
+    if (otp.length === 4) {
+      VerifyOTPRequest(getEmail(), otp).then((res) => {
+        if (res === true) {
+          navigate("/reset-password");
+        }
+      });
+    } else {
+      errorToast("OTP must be 4 digit");
+    }
+  };
   return (
     <>
       <div className="container">
@@ -15,13 +32,13 @@ const OTP = () => {
                   address.{" "}
                 </p>
                 <ReactCodeInput
-                  // onChange={(value) => SetOTP(value)}
+                  onChange={(value) => setOtp(value)}
                   // inputStyle={defaultInputStyle}
-                  fields={6}
+                  fields={4}
                 />
                 <br /> <br />
                 <button
-                  // onClick={SubmitOTP}
+                  onClick={SubmitOTP}
                   className="btn w-100 animated fadeInUp float-end btn-primary"
                 >
                   Next
@@ -35,4 +52,4 @@ const OTP = () => {
   );
 };
 
-export default OTP;
+export default VerifyOTP;

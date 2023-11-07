@@ -15,7 +15,7 @@ class appHelper {
     window.localStorage.setItem("email", email);
   }
   getEmail() {
-    window.localStorage.getItem("email", email);
+    return window.localStorage.getItem("email");
   }
   setOTP(OTP) {
     localStorage.setItem("OTP", OTP);

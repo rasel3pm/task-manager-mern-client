@@ -2,7 +2,13 @@ import axios from "axios";
 import { SuccessToast, errorToast } from "../helper/FormValidation";
 import store from "../redux/store/store";
 import { HideLoader, ShowLoader } from "../redux/slice/settings/settingsSlice";
-import { getToken, setToken, setUserDetails } from "../helper/appHelper";
+import {
+  getToken,
+  setToken,
+  setUserDetails,
+  setEmail,
+  setOTP,
+} from "../helper/appHelper";
 import {
   canceledTask,
   completedTask,
@@ -11,8 +17,8 @@ import {
 } from "../redux/slice/taskSlice/taskSlice";
 import { SetSummary } from "../redux/slice/summary/summarySlice";
 import { SetProfile } from "../redux/slice/profile/profileSlice";
-let baseURL = "https://task-manager-mern-server.vercel.app/api/v1";
-// let baseURL = "http://localhost:5000/api/v1";
+// let baseURL = "https://task-manager-mern-server.vercel.app/api/v1";
+let baseURL = "http://localhost:5000/api/v1";
 let axiosHeader = { headers: { token: getToken() } };
 export function createTask(title, description) {
   let url = baseURL + "/CreateTask";
@@ -277,17 +283,80 @@ export function SearchByKeywordRequest(keyword) {
 export async function MatchProfileRequest(email) {
   try {
     store.dispatch(ShowLoader());
-    let URL = baseURL + "/MatchProfile";
-    let reqBody = { email: email };
-    const response = await axios.post(URL, reqBody);
-    store.dispatch(HideLoader()); // Make sure HideLoader is a valid action
-    if (response.status === 200) {
-      // SuccessToast(response.data.status); // Make sure SuccessToast is a valid function
-      console.log(response.data.status);
-    }
-    return response.data;
+    let URL = baseURL + "/MatchProfile/" + email;
+    return await axios.get(URL).then((res) => {
+      store.dispatch(HideLoader());
+      if (res["status"] === 200) {
+        if (res.data["status"] === "fail") {
+          errorToast("No user found");
+          return false;
+        } else {
+          setEmail(email);
+          SuccessToast(
+            "A 6 Digit verification code has been sent to your email address. "
+          );
+          return true;
+        }
+      } else {
+        errorToast("Something Went Wrong");
+        return false;
+      }
+    });
   } catch (e) {
-    errorToast("wrong", e);
-    return [];
+    store.dispatch(HideLoader());
+    errorToast("Something went wrong");
+    return false;
   }
+}
+
+export async function VerifyOTPRequest(email, otp) {
+  store.dispatch(ShowLoader());
+  let URL = baseURL + "/VerifyOTPCode/" + email + "/" + otp;
+  return axios.get(URL).then((res) => {
+    store.dispatch(HideLoader());
+
+    if (res["status"] === 200) {
+      if (res.data["status"] === "fail") {
+        errorToast(res.data["data"]);
+        return false;
+      } else {
+        setOTP(otp);
+        SuccessToast("Code Verification Success");
+        return true;
+      }
+    } else {
+      errorToast("Something Went Wrong");
+      return false;
+    }
+  });
+}
+
+export function ResetPasswordRequest(email, OTP, password) {
+  store.dispatch(ShowLoader());
+  let URL = baseURL + "/ResetPassword";
+  let PostBody = { email: email, OTP: OTP, password: password };
+
+  return axios
+    .post(URL, PostBody)
+    .then((res) => {
+      store.dispatch(HideLoader());
+      if (res.status === 200) {
+        if (res.data["status"] === "fail") {
+          errorToast(res.data["data"]);
+          return false;
+        } else {
+          setOTP(OTP);
+          SuccessToast("NEW PASSWORD CREATED");
+          return true;
+        }
+      } else {
+        errorToast("Something Went Wrong");
+        return false;
+      }
+    })
+    .catch((err) => {
+      errorToast("Something Went Wrong");
+      store.dispatch(HideLoader());
+      return false;
+    });
 }
