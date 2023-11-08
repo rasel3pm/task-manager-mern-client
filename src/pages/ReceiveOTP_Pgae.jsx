@@ -1,10 +1,12 @@
-import React from "react";
-import OTP from "../components/accountRecovery/VerifyOTP";
-
+import React, { Suspense, lazy } from "react";
+import LazyLoader from "../components/masterLayOut/LazyLoader";
+const OTP = lazy(() => import("../components/accountRecovery/VerifyOTP"));
 const ReceiveOTP_Page = () => {
   return (
     <div>
-      <OTP />
+      <Suspense fallback={LazyLoader}>
+        <OTP />
+      </Suspense>
     </div>
   );
 };

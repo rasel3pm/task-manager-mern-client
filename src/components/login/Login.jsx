@@ -12,31 +12,39 @@ const Login = () => {
   };
   const SubmitLogin = () => {
     const { email, password } = formData;
-    LoginRequest(email, password).then((res) => {
-      if (res === true) {
-        window.location.href = "/";
-      }
-    });
+    if (isEmail(email)) {
+      errorToast("Email is required");
+      return false;
+    } else if (isEmpty(password)) {
+      errorToast("Password is required");
+      return false;
+    } else {
+      LoginRequest(email, password).then((res) => {
+        if (res === true) {
+          window.location.href = "/";
+        }
+      });
+    }
   };
   return (
     <div>
       <div className="container">
         <div className="row justify-content-center">
-          <div className="col-md-7 col-lg-6 center-screen">
-            <div className="card w-90  p-4">
+          <div className="col-md-6 col-lg-6 center-screen">
+            <div className="card border-primary w-90  p-4">
               <div className="card-body">
                 <h4>SIGN IN</h4>
                 <br />
                 <input
                   onChange={(e) => changeHandaler("email", e.target.value)}
-                  placeholder="User Email"
+                  placeholder="email"
                   className="form-control animated fadeInUp"
                   type="email"
                 />
                 <br />
                 <input
                   onChange={(e) => changeHandaler("password", e.target.value)}
-                  placeholder="User Password"
+                  placeholder="password"
                   className="form-control animated fadeInUp"
                   type="password"
                 />
@@ -48,7 +56,7 @@ const Login = () => {
                   Next
                 </button>
                 <hr />
-                <div className="float-end mt-3">
+                <div className=" mt-3">
                   <span>
                     <Link
                       className="text-center ms-3 h6 animated fadeInUp"

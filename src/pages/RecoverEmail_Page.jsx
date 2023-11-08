@@ -1,10 +1,12 @@
-import React from "react";
-import FindEmail from "../components/accountRecovery/FindEmail";
-
+import React, { Suspense, lazy } from "react";
+import LazyLoader from "../components/masterLayOut/LazyLoader";
+const FindEmail = lazy(() => import("../components/accountRecovery/FindEmail"));
 const RecoverEmail_Page = () => {
   return (
     <div>
-      <FindEmail />
+      <Suspense fallback={LazyLoader}>
+        <FindEmail />
+      </Suspense>
     </div>
   );
 };

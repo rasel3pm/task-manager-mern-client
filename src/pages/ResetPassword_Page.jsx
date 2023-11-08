@@ -1,10 +1,12 @@
-import React from "react";
-import SetPassword from "../components/accountRecovery/SetPassword";
-
+import React, { Suspense } from "react";
+import LazyLoader from "../components/masterLayOut/LazyLoader";
+const SetPassword = () => import("../components/accountRecovery/SetPassword");
 const ResetPassword_Page = () => {
   return (
     <div>
-      <SetPassword />
+      <Suspense fallback={LazyLoader}>
+        <SetPassword />
+      </Suspense>
     </div>
   );
 };
